@@ -18,7 +18,7 @@ include("header.php");
                         <h5 class='card-title'><?php echo $data['NamaProduk']?></h5>
                         <p class='card-text'>Harga: RP.<?php echo number_format($data['Harga']) ?></p>
                         <p class='card-text'>Stok: <?php echo $data['Stok']?></p>
-                        <a href='transaksi.php' class='btn btn-md btn-primary float-end'>Beli</a>
+                        <a href='transaksi.php?id=<?= $data['ProdukID']; ?>' class='btn btn-md btn-primary float-end'>Beli</a>
                     </div>
                 
                 </div>

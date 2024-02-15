@@ -2,6 +2,8 @@
 include('koneksi/koneksi.php');
 include("header.php");
 
+$id = $_GET['id'];
+
 if (isset($_POST['tambah'])) {
     $tanggal = $_POST['tanggal'];
     $nama = $_POST['nama'];
