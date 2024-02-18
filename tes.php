@@ -53,6 +53,7 @@ if (isset($_POST['tambah'])) {
 ?>
 
 
+  
 <script>
     function tambahMenu() {
         var container = document.getElementById("menuContainer");
@@ -89,13 +90,13 @@ if (isset($_POST['tambah'])) {
     }
 </script>
 
-<div class="p-4" id="main-content">
-    <div class="card mt-5" style="background-color: rgb(245,245,245)">
-        <div class="card-body">
-            <div class="container mt-5">
-                <h2>Buat Pemesanan</h2>
+        <div class="p-4" id="main-content">
+          <div class="card mt-5" style="background-color: rgb(245,245,245)">
+            <div class="card-body">
+                <div class="container mt-5">
+                    <h2>Buat Pemesanan</h2>
                     <form action="" method="POST">
-                        <div>
+                        <div class="">
                             <label for="tanggal" class="form-label">Tanggal Pemesanan</label>
                             <input type="date" value="<?php echo date('Y-m-d'); ?>" class="form-control" id="tanggal" name="tanggal" readonly required>
                         </div>
@@ -113,6 +114,17 @@ if (isset($_POST['tambah'])) {
                           <div>
                               <label for="menu" class="form-label">Menu</label>
                               <select id="menu" name="menu[]" class="form-control">
+                                
+                                <?php
+                                if ($id == true) {
+                                    $sql8 = $koneksi->query("SELECT * FROM produk WHERE ProdukID = $id AND Stok > 0");
+                                    while ($data = $sql8->fetch_assoc()) {
+                                ?>
+                                <option>Pilih Menu</option>
+                                <option value="<?php echo $data['ProdukID'] . '|' . $data['Harga']; ?>">
+                                    <?php echo $data['NamaProduk'] . " - Rp." . number_format($data['Harga']) . " - Stok:" . $data['Stok']; ?>
+                                </option>
+                                <?php } }else{ ?>
                                 <option>Pilih Menu</option>
                                 <?php
                                     $sql7 = $koneksi->query("SELECT * FROM produk WHERE Stok > 0");
@@ -121,7 +133,8 @@ if (isset($_POST['tambah'])) {
                                 <option value="<?php echo $data['ProdukID'] . '|' . $data['Harga']; ?>">
                                     <?php echo $data['NamaProduk'] . " - Rp." . number_format($data['Harga']) . " - Stok:" . $data['Stok']; ?>
                                 </option>
-                                <?php } ?>
+                                <?php } } ?>
+                                
                               </select>
                           </div>
                           <div class="mb-3">
@@ -135,7 +148,7 @@ if (isset($_POST['tambah'])) {
 
                         <button type="submit" name="tambah" class="btn btn-primary">Pesan</button>
                     </form>
-            </div>            
+                </div>            
+            </div>
+          </div>
         </div>
-    </div>
-</div>

@@ -14,9 +14,9 @@ if ($_SESSION['Username']=="") {
     <title>KASIR</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../bootstrap-5.3.2-dist/bootstrap.min.css">
-    <script src="../bootstrap-5.3.2-dist/jquery.min.js"></script>
-    <script src="../bootstrap-5.3.2-dist/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../assets/bootstrap.min.css">
+    <script src="../assets/jquery.min.js"></script>
+    <script src="../assets/bootstrap.min.js"></script>
     <style>
         /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
         .row.content {height: 640px}
@@ -39,15 +39,17 @@ if ($_SESSION['Username']=="") {
 <div class="container-fluid">
   <div class="row content">
     <div class="col-sm-3 sidenav hidden-xs">
-      <h2><?php echo $Level ?></h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li class="active"><a href="index.php">Dashboard</a></li>
-        <li><a href="?page=stok">Stok</a></li>
-        <li><a href="?page=user">User</a></li>
-        <li><a href="logout.php">Log Out</a></li>
-      </ul><br>
+        <h2><?php echo $Level ?></h2>
+        <ul class="nav nav-pills nav-stacked">
+            <li <?php if(isset($_GET['page']) && $_GET['page'] == 'dashboard') echo 'class="active"'; ?>><a href="?page=dashboard">Dashboard</a></li>
+            <li <?php if(isset($_GET['page']) && $_GET['page'] == 'user') echo 'class="active"'; ?>><a href="?page=user">User</a></li>
+            <li <?php if(isset($_GET['page']) && $_GET['page'] == 'stok') echo 'class="active"'; ?>><a href="?page=stok">Stok</a></li>
+            <li <?php if(isset($_GET['page']) && $_GET['page'] == 'daftar-transaksi') echo 'class="active"'; ?>><a href="?page=daftar-transaksi">Daftar Transaksi</a></li>
+            <li><a href="logout.php">Log Out</a></li>
+        </ul>
+
     </div>
-    <br>
+    
     
     <div class="col-sm-9">
     <?php
@@ -71,6 +73,12 @@ if ($_SESSION['Username']=="") {
                     case 'stok':
                         include "stok-barang.php";
                         break;
+                    case 'daftar-transaksi':
+                        include "daftar-transaksi.php";
+                        break;
+                    case 'hapus-daftar-transaksi':
+                        include "hapus-daftar-transaksi.php";
+                        break;
                     case 'tambah-barang':
                         include "tambah-barang.php";
                         break;
@@ -81,6 +89,10 @@ if ($_SESSION['Username']=="") {
                         include "hapus-barang.php";
                         break;
                         
+                    case 'dashboard':
+                        include "dashboard.php";
+                        break;
+                
                     case 'logout':
                         include "logout.php";
                         break;
