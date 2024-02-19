@@ -61,17 +61,27 @@ if (isset($_POST['tambah'])) {
         newMenuInput.innerHTML = `
             <div class="">
                 <label for="menu" class="form-label">Menu</label>
-                <select id="menu" name="menu[]" class="form-control">
+                <select id="menu" name="menu[]" class="form-control" onchange="showDetails(this)">
                     <option>Pilih Menu</option>
                     <?php
                         $sql6 = $koneksi->query("SELECT * FROM produk WHERE Stok > 0");
                         while ($data = $sql6->fetch_assoc()) {
                     ?>
-                    <option value="<?php echo $data['ProdukID'] . '|' . $data['Harga']; ?>">
-                        <?php echo $data['NamaProduk'] . " - Rp." . number_format($data['Harga']) . " - Stok:" . $data['Stok']; ?>
+                    <option value="<?php echo $data['ProdukID'] . '|' . $data['Harga'] . '|' . $data['Stok']; ; ?>">
+                        <?php echo $data['NamaProduk']; ?>
                     </option>
                     <?php } ?>
                 </select>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-6">
+                    <label for="harga" class="form-label">Harga</label>
+                    <input type="text" name="harga" class="form-control harga" disabled>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="stok" class="form-label">Stok</label>
+                    <input type="text" name="stok" class="form-control stok" disabled>
+                </div>
             </div>
             <div class="mb-3">
                 <label for="jumlah" class="form-label">Jumlah</label>
@@ -87,10 +97,20 @@ if (isset($_POST['tambah'])) {
         var divToRemove = button.parentNode.parentNode;
         divToRemove.remove();
     }
+
+    function showDetails(select) {
+        var menu = select.value;
+        var menuDetails = menu.split('|');
+        var formattedPrice = Number(menuDetails[1]).toLocaleString('id-ID');
+        var hargaInput = select.parentElement.nextElementSibling.querySelector(".harga");
+        var stokInput = select.parentElement.nextElementSibling.querySelector(".stok");
+        hargaInput.value = "Rp. " + formattedPrice;
+        stokInput.value = menuDetails[2];
+    }
 </script>
 
 <div class="p-4" id="main-content">
-    <div class="card mt-5" style="background-color: rgb(245,245,245)">
+    <div class="card mt-5" style="background-color: lightgray;">
         <div class="card-body">
             <div class="container mt-5">
                 <h2>Buat Pemesanan</h2>
@@ -100,30 +120,40 @@ if (isset($_POST['tambah'])) {
                             <input type="date" value="<?php echo date('Y-m-d'); ?>" class="form-control" id="tanggal" name="tanggal" readonly required>
                         </div>
                         <div class="row">
-                        <div class="form-group col-sm-6">
-                            <label for="nama" class="form-label">Nama Anda</label>
-                            <input type="text" class="form-control" id="nama" name="nama" required>
-                        </div>
-                        <div class="form-group col-sm-6">
-                            <label for="nomeja" class="form-label">No Meja</label>
-                            <input type="number" min="1" class="form-control" id="nomeja" name="nomeja" required>
-                        </div>
+                            <div class="form-group col-sm-6">
+                                <label for="nama" class="form-label">Nama Anda</label>
+                                <input type="text" class="form-control" id="nama" name="nama" required>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="nomeja" class="form-label">No Meja</label>
+                                <input type="number" min="1" class="form-control" id="nomeja" name="nomeja" required>
+                            </div>
                         </div>
                         <div id="menuContainer">
-                          <div>
-                              <label for="menu" class="form-label">Menu</label>
-                              <select id="menu" name="menu[]" class="form-control">
+                        <div>
+                            <label for="menu" class="form-label">Menu</label>
+                            <select name="menu[]" class="form-control" onchange="showDetails(this)">
                                 <option>Pilih Menu</option>
                                 <?php
-                                    $sql7 = $koneksi->query("SELECT * FROM produk WHERE Stok > 0");
-                                    while ($data = $sql7->fetch_assoc()) {
-                                ?>
-                                <option value="<?php echo $data['ProdukID'] . '|' . $data['Harga']; ?>">
-                                    <?php echo $data['NamaProduk'] . " - Rp." . number_format($data['Harga']) . " - Stok:" . $data['Stok']; ?>
-                                </option>
+                                $sql7 = $koneksi->query("SELECT * FROM produk WHERE Stok > 0");
+                                while ($data = $sql7->fetch_assoc()) {
+                                    ?>
+                                    <option value="<?php echo $data['ProdukID'] . '|' . $data['Harga'] . '|' . $data['Stok']; ?>">
+                                        <?php echo $data['NamaProduk']; ?>
+                                    </option>
                                 <?php } ?>
-                              </select>
-                          </div>
+                            </select>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-6">
+                                <label for="harga" class="form-label">Harga</label>
+                                <input type="text" name="harga" class="form-control harga" disabled>
+                            </div>
+                            <div class="form-group col-sm-6">
+                                <label for="stok" class="form-label">Stok</label>
+                                <input type="text" name="stok" class="form-control stok" disabled>
+                            </div>
+                        </div>
                           <div class="mb-3">
                               <label for="jumlah" class="form-label">Jumlah</label>
                               <input type="number" min="1" class="form-control" id="jumlah" name="jumlah[]" required>
