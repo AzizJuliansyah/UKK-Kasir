@@ -2,11 +2,11 @@
 session_start();
 include "../koneksi/koneksi.php";
 
+if ($_SESSION['Username']=="") {
+    header("Location: login.php");
+}
 $User = $_SESSION['Username'];
 $Level = $_SESSION['Level'];
-if ($_SESSION['Username']=="") {
-  header("Location: login.php");
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,24 +18,17 @@ if ($_SESSION['Username']=="") {
     <script src="../assets/jquery.min.js"></script>
     <script src="../assets/bootstrap.min.js"></script>
     <style>
-        /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
         .row.content {height: 640px}
-        
-        
-        /* Set gray background color and 100% height */
         .sidenav {
             background-color: #f1f1f1;
             height: 100%;
         }
-            
-        /* On small screens, set height to 'auto' for the grid */
         @media screen and (max-width: 767px) {
         .row.content {height: auto;} 
         }
     </style>
 </head>
 <body>
-
 <div class="container-fluid">
   <div class="row content">
     <div class="col-sm-3 sidenav hidden-xs">
@@ -49,7 +42,6 @@ if ($_SESSION['Username']=="") {
         </ul>
 
     </div>
-    
     
     <div class="col-sm-9">
     <?php
@@ -96,11 +88,6 @@ if ($_SESSION['Username']=="") {
                     case 'logout':
                         include "logout.php";
                         break;
-                
-
-                    default:
-                        # code...
-                        break;
                 }
             }
             else {
@@ -110,6 +97,5 @@ if ($_SESSION['Username']=="") {
      </div>
   </div>
 </div>
-
 </body>
 </html>

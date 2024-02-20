@@ -1,5 +1,4 @@
 <?php
-
 if (isset($_POST['tambah'])) {
   $nama = $_POST['nama'];
   $harga = $_POST['harga'];
@@ -12,13 +11,11 @@ if (isset($_POST['tambah'])) {
 
   if (move_uploaded_file($_FILES["foto"]["tmp_name"], $targetfile)) {
     $sql = $koneksi->query("INSERT INTO produk (NamaProduk, Harga, Stok, Foto) VALUES ('$nama', '$harga', $stok, '$filename')");
-    echo "<script>alert('Berhasil menambahkan produk');window.location.href='?page=stok';</script>";
-          
-  } else {
-      echo "Maaf, terjadi kesalahan saat mengupload file gambar.";
+    echo "<script>alert('Berhasil menambahkan produk');window.location.href='?page=stok';</script>";  
+  }else{
+    echo "Maaf, terjadi kesalahan saat mengupload file gambar.";
   }
 }
-
 ?>
 <div class="p-4" id="main-content">
     <div class="card well">

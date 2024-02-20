@@ -7,26 +7,20 @@ session_start();
 if (isset($_POST['submit'])) {
     $namauser = $_POST['Username'];
     $password = md5($_POST['Password']);
-
     $sql = "SELECT * FROM user WHERE Username='$namauser' AND Password='$password'";
     $result = mysqli_query($koneksi, $sql);
 
     if ($result->num_rows > 0) {
         $row = mysqli_fetch_assoc($result);
-
-        // Mengambil informasi Level dari hasil kueri
         $level = $row['Level'];
         $_SESSION['Level'] = $level;
-
         $_SESSION['Username'] = $row['Username'];
-
         header("Location: index.php");
         echo "<script>alert('Berhasil Masuk!')</script>";
     } else {
         echo "<script>alert('Username atau Password Anda Salah. Silahkan Coba Lagi')</script>";
     }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -38,7 +32,6 @@ if (isset($_POST['submit'])) {
     <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
 </head>
 <body>
-
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -58,10 +51,6 @@ if (isset($_POST['submit'])) {
                             <label for="password" class="form-label">Password:</label>
                             <input type="password" class="form-control" id="password" name="Password" required>
                         </div>
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="remember">
-                            <label class="form-check-label" for="remember">Ingat saya</label>
-                        </div>
                         <button type="submit" name="submit" class="btn col-12 btn-primary">Login</button>
                     </form>
                 </div>
@@ -69,6 +58,5 @@ if (isset($_POST['submit'])) {
         </div>
     </div>
 </div>
-
 </body>
 </html>

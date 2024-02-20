@@ -26,7 +26,7 @@
                     <tr>
                         <td><?php echo $no++ ?></td>
                         <td><?php echo $data['Username']; ?></td>
-                        <td><?php echo $data['Password']; ?></td>
+                        <td><?php echo str_repeat('*', strlen($data['Password'])); ?></td>
                         <td><?php echo $data['Level']; ?></td>
                         <?php if ($Level == "Administrator") { ?>
                         <td><a href='?page=edit-user&id=<?= $data['UserID']; ?>' class='btn btn-sm btn-warning'>Edit</a> <a onclick="return confirm('Apakah anda yakin ingin menghapus nya!!')" href='?page=hapus-user&id=<?= $data['UserID']; ?>' class='btn btn-sm btn-danger'>Delete</a></td>

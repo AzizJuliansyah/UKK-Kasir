@@ -30,7 +30,7 @@
                             <td><?php echo $data['Stok']?></td>
                             <td><?php echo $data['Terjual']?></td>
                             <td><a type='button' href='?page=edit-barang&id=<?= $data['ProdukID']; ?>' class='btn btn-sm btn-warning'>Edit</a>
-                                 <a onclick="return confirm('Apakah anda yakin ingin menghapus nya!!')" type='button' href='?page=hapus-barang&id=<?= $data['ProdukID']; ?>' class='btn btn-sm btn-danger'>Delete</a></td>
+                                <a onclick="return confirm('Apakah anda yakin ingin menghapus nya!!')" type='button' href='?page=hapus-barang&id=<?= $data['ProdukID']; ?>' class='btn btn-sm btn-danger'>Delete</a></td>
                         </tr>
                             <?php } ?>
                     </tbody>

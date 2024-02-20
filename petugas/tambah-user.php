@@ -25,16 +25,11 @@
 </div>
         
 <?php
-    include_once("../koneksi/koneksi.php");
     if(isset($_POST['submit'])) {
         $name = $_POST['Username'];
         $level = $_POST['Level'];
         $password = md5($_POST['Password']);
-
         $sql = $koneksi->query("INSERT INTO user (Username, Password, Level) VALUES('$name','$password','$level')");
-
         echo "<script>alert('Berhasil menambahkan user');window.location.href='?page=user';</script>";
     }
-
-
 ?>

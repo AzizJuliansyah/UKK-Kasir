@@ -11,6 +11,7 @@ if (isset($_POST['tambah'])) {
     $menu_jumlah = $_POST['menu'];
     $jumlah_array = $_POST['jumlah'];
     $stok = true;
+    $totalharga = 0; // tambahan ke 1
 
     foreach ($menu_jumlah as $i => $item) {
         $parts = explode("|", $item);
@@ -25,12 +26,17 @@ if (isset($_POST['tambah'])) {
         if ($jumlah > $stok_produk) {
             $stok = false;
             break;
+        } else { // tambahan ke 2
+            $subtotal = $harga * $jumlah; // tambahan ke 2
+            $totalharga += $subtotal; // tambahan ke 2
         }
     }
     if ($stok) {
         $sql = $koneksi->query("INSERT INTO penjualan (TanggalPenjualan) VALUES ('$tanggal')");
         $id_transaksi_baru = mysqli_insert_id($koneksi);
-
+        // tambahan ke 3
+        $sql = $koneksi->query("UPDATE penjualan SET TotalHarga='$totalharga', PelangganID='$id_transaksi_baru' WHERE PenjualanID='$id_transaksi_baru'");
+        
         $sql = $koneksi->query("INSERT INTO pelanggan (PelangganID, NamaPelanggan, NoMeja) VALUES ('$id_transaksi_baru', '$nama', '$nomeja')");
 
         foreach ($menu_jumlah as $i => $item) {
@@ -50,6 +56,8 @@ if (isset($_POST['tambah'])) {
         echo "<script>alert('Maaf, jumlah pesanan melebihi stok yang tersedia. Silakan periksa kembali pesanan Anda.')</script>";
     }
 }
+
+
 ?>
 
 
